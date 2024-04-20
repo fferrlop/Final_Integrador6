@@ -27,10 +27,15 @@ public class InterfazUsuario extends JFrame {
         buttonPanel.setLayout(new GridBagLayout());
         buttonPanel.setOpaque(false);
 
+// Tamaño botones
         JButton botonDatosDinamicos = new JButton("Datos dinámicos");
+        botonDatosDinamicos.setPreferredSize(new Dimension(443, 80));
         JButton botonAnalisisOrganizacion = new JButton("Analisis y Organización de información");
+        botonAnalisisOrganizacion.setPreferredSize(new Dimension(443, 80));
         JButton botonMapasAsociacion = new JButton("Mapas y Asociación de Datos");
+        botonMapasAsociacion.setPreferredSize(new Dimension(443, 80));
         JButton botonIndexacionVisualizacion = new JButton("Indexación y Visualización de archivos");
+        botonIndexacionVisualizacion.setPreferredSize(new Dimension(443, 80));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -58,7 +63,7 @@ public class InterfazUsuario extends JFrame {
                 Image scaledImage = originalImage.getScaledInstance(layeredPane.getWidth(), layeredPane.getHeight(), Image.SCALE_SMOOTH);
                 background.setIcon(new ImageIcon(scaledImage));
                 background.setSize(layeredPane.getSize());
-                buttonPanel.setBounds(layeredPane.getWidth() - 200, (layeredPane.getHeight() - buttonPanel.getPreferredSize().height) / 2, 200, buttonPanel.getPreferredSize().height);
+                buttonPanel.setBounds(layeredPane.getWidth() - 443 - 50, (layeredPane.getHeight() - buttonPanel.getPreferredSize().height) / 2, 443, buttonPanel.getPreferredSize().height);
             }
         });
 
