@@ -11,12 +11,17 @@ public class InterfazUsuario extends JFrame {
         setTitle("Inicio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setLayout(new BorderLayout());
 
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/fondoUAX.jpg"));
+        JLabel background = new JLabel(imageIcon);
+        background.setSize(background.getPreferredSize());
 
+        setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
 
+        layeredPane.add(background, BorderLayout.CENTER);
+        layeredPane.setLayer(background, 1);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
@@ -27,19 +32,10 @@ public class InterfazUsuario extends JFrame {
         JButton botonMapasAsociacion = new JButton("Mapas y Asociación de Datos");
         JButton botonIndexacionVisualizacion = new JButton("Indexación y Visualización de archivos");
 
-    //Imagen de Fondo
-
-
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/fondoUAX.jpg"));
-        JLabel background = new JLabel(imageIcon);
-        background.setSize(background.getPreferredSize());
-
-        setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.NONE;
-        gbc.insets = new Insets(10, 0, 10, 0); // 10 pixels of space at the top and bottom
+        gbc.insets = new Insets(10, 0, 10, 50); // 10 pixels of space at the top and bottom, 50 pixels of space on the right
 
         gbc.gridy = 0;
         buttonPanel.add(botonDatosDinamicos, gbc);
@@ -53,10 +49,7 @@ public class InterfazUsuario extends JFrame {
         gbc.gridy = 3;
         buttonPanel.add(botonIndexacionVisualizacion, gbc);
 
-
-        layeredPane.add(background, BorderLayout.CENTER);
-        layeredPane.setLayer(background, 1);
-        layeredPane.add(buttonPanel, BorderLayout.CENTER);
+        layeredPane.add(buttonPanel, BorderLayout.EAST);
         layeredPane.setLayer(buttonPanel, 2);
 
         layeredPane.addComponentListener(new ComponentAdapter() {
@@ -71,8 +64,6 @@ public class InterfazUsuario extends JFrame {
 
         setLocationRelativeTo(null);
         add(layeredPane);
-
-    //Fin Imagen de fondo
 
         setVisible(true);
     }
