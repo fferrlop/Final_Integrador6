@@ -40,7 +40,12 @@ public class InterfazUsuario extends JFrame {
         botonDatosDinamicos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EsteticaDatos().setVisible(true);
+                EsteticaDatos esteticaDatos = new EsteticaDatos();
+                esteticaDatos.setVisible(true);
+                // Use the new method to set the text of the JTextArea
+                esteticaDatos.setTextArea("");
+                // Ejecutar ModeladoMultidimensional y mostrar los resultados en el JTextArea
+                esteticaDatos.executeModeladoMultidimensional();
             }
         });
 

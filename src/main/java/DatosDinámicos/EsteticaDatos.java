@@ -62,12 +62,17 @@ public class EsteticaDatos extends JFrame {
     }
 
     // Método para ejecutar ModeladoMultidimensional y mostrar los resultados en el JTextArea
-    private void executeModeladoMultidimensional() {
+    public void executeModeladoMultidimensional() {
         // Crear una instancia de ModeladoMultidimensional
         ModeladoMultidimensional modelado = new ModeladoMultidimensional();
 
         // Obtener y mostrar algunos datos
-        textArea.append("Primer elemento de listaReales: " + modelado.getListaReales().obtenerElemento(0) + "\n");
-        textArea.append("Primer elemento de listaPares: " + modelado.getListaPares().obtenerElemento(0).getPrimero() + ", " + modelado.getListaPares().obtenerElemento(0).getSegundo() + "\n");
+        String text = "Primer elemento de listaReales: " + modelado.getListaReales().obtenerElemento(0) + "\n";
+        text += "Primer elemento de listaPares: " + modelado.getListaPares().obtenerElemento(0).getPrimero() + ", " + modelado.getListaPares().obtenerElemento(0).getSegundo() + "\n";
+        textArea.setText(text);
+    }
+
+    public void setTextArea(String text) {
+        this.textArea.setText(text);
     }
 }
