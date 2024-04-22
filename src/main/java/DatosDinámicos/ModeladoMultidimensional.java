@@ -1,4 +1,9 @@
 package DatosDinámicos;
 
-public class ModeladoMultidimensional {
+import javax.swing.*;
+
+public class ModeladoMultidimensional extends JFrame {
+    public ModeladoMultidimensional() {
+
+    }
 }

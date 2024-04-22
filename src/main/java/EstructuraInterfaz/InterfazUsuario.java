@@ -1,7 +1,11 @@
 package EstructuraInterfaz;
 
+import DatosDinámicos.ModeladoMultidimensional;
+import DatosDinámicos.EsteticaDatos;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -14,7 +18,7 @@ public class InterfazUsuario extends JFrame {
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setLayout(null);
 
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/fondoUAX.jpg"));
+        ImageIcon imageIcon = new ImageIcon("src/main/resources/fondoUax.jpg");
         JLabel background = new JLabel(imageIcon);
         background.setSize(background.getPreferredSize());
 
@@ -27,20 +31,28 @@ public class InterfazUsuario extends JFrame {
         buttonPanel.setLayout(new GridBagLayout());
         buttonPanel.setOpaque(false);
 
-// Tamaño botones
         JButton botonDatosDinamicos = new JButton("Datos dinámicos");
         botonDatosDinamicos.setPreferredSize(new Dimension(443, 80));
+        botonDatosDinamicos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EsteticaDatos().setVisible(true);
+            }
+        });
+
         JButton botonAnalisisOrganizacion = new JButton("Analisis y Organización de información");
         botonAnalisisOrganizacion.setPreferredSize(new Dimension(443, 80));
+
         JButton botonMapasAsociacion = new JButton("Mapas y Asociación de Datos");
         botonMapasAsociacion.setPreferredSize(new Dimension(443, 80));
+
         JButton botonIndexacionVisualizacion = new JButton("Indexación y Visualización de archivos");
         botonIndexacionVisualizacion.setPreferredSize(new Dimension(443, 80));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 10, 0); // 10 pixels of space at the top and bottom
+        gbc.insets = new Insets(10, 0, 10, 0);
 
         gbc.gridy = 0;
         buttonPanel.add(botonDatosDinamicos, gbc);
