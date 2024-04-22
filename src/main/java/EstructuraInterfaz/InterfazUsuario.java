@@ -1,7 +1,11 @@
 package EstructuraInterfaz;
 
+import AnalisisYOrganizacion.EsteticaAnalisis;
 import DatosDinámicos.ModeladoMultidimensional;
 import DatosDinámicos.EsteticaDatos;
+import IndexacionYVisualizacion.EsteticaIndexacion;
+import MapasYAsociacion.EsteticaMapas;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,12 +46,30 @@ public class InterfazUsuario extends JFrame {
 
         JButton botonAnalisisOrganizacion = new JButton("Analisis y Organización de información");
         botonAnalisisOrganizacion.setPreferredSize(new Dimension(443, 80));
+        botonAnalisisOrganizacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EsteticaAnalisis().setVisible(true);
+            }
+        });
 
         JButton botonMapasAsociacion = new JButton("Mapas y Asociación de Datos");
         botonMapasAsociacion.setPreferredSize(new Dimension(443, 80));
+        botonMapasAsociacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EsteticaMapas().setVisible(true);
+            }
+        });
 
         JButton botonIndexacionVisualizacion = new JButton("Indexación y Visualización de archivos");
         botonIndexacionVisualizacion.setPreferredSize(new Dimension(443, 80));
+        botonIndexacionVisualizacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EsteticaIndexacion().setVisible(true);
+            }
+        });
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
