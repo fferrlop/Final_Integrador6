@@ -1,11 +1,16 @@
 package DatosDinámicos;
 
+import DatosDinámicos2.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EsteticaDatos extends JFrame {
+    // Crear un JTextArea para mostrar los resultados
+    JTextArea textArea = new JTextArea();
+
     public EsteticaDatos() {
 
         setTitle("Datos dinámicos");
@@ -26,16 +31,43 @@ public class EsteticaDatos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Llamar al método main de ModeladoMultidimensional
-                ModeladoMultidimensional.main(new String[]{});
+                executeModeladoMultidimensional();
             }
         });
 
         // Crear un JPanel con FlowLayout y agregar el botón a este
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.setBackground(customColor); // Establecer el color de fondo del JPanel
-        panel.add(button);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setBackground(customColor); // Establecer el color de fondo del JPanel
+        buttonPanel.add(button);
+
+        // Agregar el JTextArea a un JScrollPane
+        textArea.setEditable(false); // Hacer el JTextArea no editable
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(450, 150)); // Establecer el tamaño preferido del JScrollPane
+        scrollPane.setMaximumSize(new Dimension(450, 150)); // Establecer el tamaño máximo del JScrollPane
+
+        // Crear un JPanel adicional y agregar el JScrollPane a este
+        JPanel scrollPanePanel = new JPanel();
+        scrollPanePanel.setLayout(new BoxLayout(scrollPanePanel, BoxLayout.PAGE_AXIS));
+        scrollPanePanel.setBackground(customColor); // Establecer el color de fondo del JPanel
+        scrollPanePanel.add(scrollPane);
+
+        // Crear un JPanel con BorderLayout y agregar el buttonPanel y el scrollPanePanel a este
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(buttonPanel, BorderLayout.NORTH);
+        panel.add(scrollPanePanel, BorderLayout.CENTER);
 
         // Agregar el JPanel a la ventana
         getContentPane().add(panel, BorderLayout.CENTER);
+    }
+
+    // Método para ejecutar ModeladoMultidimensional y mostrar los resultados en el JTextArea
+    private void executeModeladoMultidimensional() {
+        // Crear una instancia de ModeladoMultidimensional
+        ModeladoMultidimensional modelado = new ModeladoMultidimensional();
+
+        // Obtener y mostrar algunos datos
+        textArea.append("Primer elemento de listaReales: " + modelado.getListaReales().obtenerElemento(0) + "\n");
+        textArea.append("Primer elemento de listaPares: " + modelado.getListaPares().obtenerElemento(0).getPrimero() + ", " + modelado.getListaPares().obtenerElemento(0).getSegundo() + "\n");
     }
 }
