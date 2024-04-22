@@ -13,5 +13,9 @@ public class EsteticaDatos extends JFrame {
 
         Color customColor = new Color(30, 62, 109);
         getContentPane().setBackground(customColor);
+
+        JLabel label = new JLabel("Datos dinámicos", SwingConstants.CENTER);
+        label.setForeground(Color.WHITE);
+        getContentPane().add(label, BorderLayout.NORTH);
     }
 }
