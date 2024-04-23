@@ -54,6 +54,8 @@ public class EsteticaMapas extends JFrame {
             JPanel cellPanel = cellPanels.get(coordenada);
             if (cellPanel != null) {
                 cellPanel.setBackground(Color.RED);
+            } else {
+                JOptionPane.showMessageDialog(null, "Esta coordenada no existe");
             }
         });
         getContentPane().add(button, BorderLayout.SOUTH);
