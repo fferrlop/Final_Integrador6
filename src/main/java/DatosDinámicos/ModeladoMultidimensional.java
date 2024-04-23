@@ -1,19 +1,14 @@
 package DatosDinámicos;
 
 import DatosDinámicos2.ListaPares;
-import DatosDinámicos2.ListaReales;
 import DatosDinámicos2.Pareja;
 
 import java.util.Collections;
 import java.util.Comparator;
 
 public class ModeladoMultidimensional {
-    private ListaReales listaReales = new ListaReales();
     private ListaPares listaPares = new ListaPares();
 
-    public ListaReales getListaReales() {
-        return listaReales;
-    }
 
     public ListaPares getListaPares() {
         return listaPares;
@@ -21,10 +16,6 @@ public class ModeladoMultidimensional {
 
     public void addPareja(Pareja pareja) {
         listaPares.agregarElemento(pareja);
-    }
-
-    public void addReal(double real) {
-        listaReales.agregarElemento(real);
     }
 
     public void sortDataByFirstNumber() {
