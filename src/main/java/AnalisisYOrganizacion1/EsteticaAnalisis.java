@@ -174,10 +174,10 @@ public class EsteticaAnalisis extends JFrame {
                 filtrarPorNombre();
                 break;
             case 1:
-                // Implementar la lógica para filtrar por precio aquí
+                filtrarPorPrecio();
                 break;
             case 2:
-                // Implementar la lógica para filtrar por fecha aquí
+                filtrarPorFecha();
                 break;
             default:
                 break;
@@ -191,6 +191,47 @@ public class EsteticaAnalisis extends JFrame {
                 List<String> lines = Files.readAllLines(Paths.get("src/main/java/ArchivosGuardados/informacionVentas.txt"));
                 List<String> filteredLines = lines.stream()
                         .filter(line -> line.startsWith(nombre + " |"))
+                        .collect(Collectors.toList());
+
+                textArea.setText(String.join("\n", filteredLines));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void filtrarPorPrecio() {
+        String precioStr = JOptionPane.showInputDialog("Ingrese el precio para filtrar:");
+        if (precioStr != null) {
+            try {
+                double precio = Double.parseDouble(precioStr);
+                List<String> lines = Files.readAllLines(Paths.get("src/main/java/ArchivosGuardados/informacionVentas.txt"));
+                List<String> filteredLines = lines.stream()
+                        .filter(line -> {
+                            String[] parts = line.split(" \\| ");
+                            return parts.length > 1 && Double.parseDouble(parts[1]) == precio;
+                        })
+                        .collect(Collectors.toList());
+
+                textArea.setText(String.join("\n", filteredLines));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void filtrarPorFecha() {
+        String fechaStr = JOptionPane.showInputDialog("Ingrese la fecha para filtrar (formato: dd/MM/yyyy):");
+        if (fechaStr != null) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate fecha = LocalDate.parse(fechaStr, formatter);
+                List<String> lines = Files.readAllLines(Paths.get("src/main/java/ArchivosGuardados/informacionVentas.txt"));
+                List<String> filteredLines = lines.stream()
+                        .filter(line -> {
+                            String[] parts = line.split(" \\| ");
+                            return parts.length > 2 && LocalDate.parse(parts[2], formatter).isEqual(fecha);
+                        })
                         .collect(Collectors.toList());
 
                 textArea.setText(String.join("\n", filteredLines));
