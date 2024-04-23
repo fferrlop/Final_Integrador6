@@ -39,7 +39,7 @@ public class EsteticaDatos extends JFrame {
         getContentPane().add(label, BorderLayout.NORTH);
 
         // Crear un botón
-        JButton button = new JButton("Modelado Multidimensional");
+        JButton button = new JButton("Mostrar cambios");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,22 +92,19 @@ public class EsteticaDatos extends JFrame {
         });
 
         // Crear un botón de ordenar
-        // Crear un botón de ordenar
         JButton sortButton = new JButton("Ordenar");
-        sortButton.setPreferredSize(new Dimension(100, 25)); // Establecer un tamaño fijo para el botón de ordenar
+        sortButton.setPreferredSize(new Dimension(100, 25));
         sortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Crear una ventana emergente para elegir el criterio de ordenación
                 JDialog sortDialog = new JDialog(EsteticaDatos.this, "Ordenar parejas", true);
                 sortDialog.setLayout(new FlowLayout());
 
-                // Crear un botón "Ordenar por primer número" para realizar la ordenación
+
                 JButton firstNumberButton = new JButton("Ordenar por primer número");
                 firstNumberButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Llamar al método para ordenar los datos por el primer número
                         sortDataByFirstNumber();
                         sortDialog.dispose();
                     }

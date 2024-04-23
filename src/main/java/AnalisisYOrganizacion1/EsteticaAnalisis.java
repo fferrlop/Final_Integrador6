@@ -128,10 +128,10 @@ public class EsteticaAnalisis extends JFrame {
 
         Ventas venta = new Ventas(nombreComprador, cantidad, fecha);
         ventas.add(venta);
-        System.out.println("Venta agregada: " + nombreComprador + " | " + cantidad + " | " + fechaStr); // Imprime un mensaje cuando se agrega una venta
+        System.out.println("Venta agregada: " + nombreComprador + " | " + cantidad + "€ | " + fechaStr); // Imprime un mensaje cuando se agrega una venta
 
         try (FileWriter writer = new FileWriter("src/main/java/ArchivosGuardados/informacionVentas.txt", true)) {
-            String ventaStr = venta.getNombreComprador() + " | " + venta.getCantidad() + " | " + venta.getFecha().format(formatter) + "\n";
+            String ventaStr = venta.getNombreComprador() + " | " + venta.getCantidad() + "€ | " + venta.getFecha().format(formatter) + "\n";
             writer.write(ventaStr);
             System.out.println("Venta escrita en el archivo: " + ventaStr); // Imprime un mensaje cuando se escribe en el archivo
         } catch (IOException e) {
@@ -209,7 +209,7 @@ public class EsteticaAnalisis extends JFrame {
                 List<String> filteredLines = lines.stream()
                         .filter(line -> {
                             String[] parts = line.split(" \\| ");
-                            return parts.length > 1 && Double.parseDouble(parts[1]) == precio;
+                            return parts.length > 1 && Double.parseDouble(parts[1].replace("€", "")) == precio;
                         })
                         .collect(Collectors.toList());
 
