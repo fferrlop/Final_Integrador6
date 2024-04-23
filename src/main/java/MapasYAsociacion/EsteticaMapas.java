@@ -18,5 +18,23 @@ public class EsteticaMapas extends JFrame {
         label.setForeground(Color.WHITE);
         label.setFont(new Font(label.getFont().getName(), label.getFont().getStyle(), 20));
         getContentPane().add(label, BorderLayout.NORTH);
+
+        JPanel gridPanel = new JPanel(new GridLayout(5, 5));
+        char column = 'A';
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                JPanel cellPanel = new JPanel();
+                cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                JLabel cellLabel = new JLabel(String.valueOf(column) + (j + 1));
+                cellPanel.add(cellLabel);
+                gridPanel.add(cellPanel);
+            }
+            column++;
+        }
+
+        getContentPane().add(gridPanel, BorderLayout.CENTER);
+
+        JButton button = new JButton("Escribir coordenada");
+        getContentPane().add(button, BorderLayout.SOUTH);
     }
 }
