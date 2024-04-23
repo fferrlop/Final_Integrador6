@@ -12,3 +12,9 @@ La manera de representar este ejercicico ha sido mediante las ventas hechas. Par
 
 
 3. Mapas y asociación de datos:
+
+En este caso, mi manera de representar este ejercicio ha sido con un mapa como el de Hundir la Flota. Se puede ver un mapa de coordenadas en el que al pulsar o escribir una coordenada, esta se marcará y se quedará marcada en rojo hasta que se decida eliminar pulsando o escribiendo su coordenada de nuevo. De esta manera se pueden elegir mediante patrones la casilla deseada, esto se podría usar si cada casilla tuviera información diferente que se quiera mostrar o no.
+
+4. Indexación y visualización:
+
+Por último, en este ejercicio se pedía poder indexar un directorio para poder mostrar sus archivos. Primero se deberá escribir la ruta a indexar, tras esto, el boton de listar enseñará los archivos que se encuentran en ese directorio y los mostrará de manera ordenada con su ruta al lado. El otro botón, buscar, permitirá enseñar un documento en concreto el cual mostrará su hora de última modificación, saber los documentos que se pueden buscar se podrá usar por tanto el botón de listar.
