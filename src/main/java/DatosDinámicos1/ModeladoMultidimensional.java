@@ -1,4 +1,4 @@
-package DatosDinámicos;
+package DatosDinámicos1;
 
 import DatosDinámicos2.ListaPares;
 import DatosDinámicos2.Pareja;

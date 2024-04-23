@@ -1,4 +1,4 @@
-package DatosDinámicos;
+package DatosDinámicos1;
 
 import DatosDinámicos2.*;
 
@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,6 +35,7 @@ public class EsteticaDatos extends JFrame {
 
         JLabel label = new JLabel("Datos dinámicos", SwingConstants.CENTER);
         label.setForeground(Color.WHITE);
+        label.setFont(new Font(label.getFont().getName(), label.getFont().getStyle(), 20));
         getContentPane().add(label, BorderLayout.NORTH);
 
         // Crear un botón

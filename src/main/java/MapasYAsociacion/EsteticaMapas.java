@@ -16,6 +16,7 @@ public class EsteticaMapas extends JFrame {
 
         JLabel label = new JLabel("Mapas y Asociación de Datos", SwingConstants.CENTER);
         label.setForeground(Color.WHITE);
+        label.setFont(new Font(label.getFont().getName(), label.getFont().getStyle(), 20));
         getContentPane().add(label, BorderLayout.NORTH);
     }
 }

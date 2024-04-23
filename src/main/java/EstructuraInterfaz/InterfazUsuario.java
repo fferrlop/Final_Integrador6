@@ -1,8 +1,7 @@
 package EstructuraInterfaz;
 
-import AnalisisYOrganizacion.EsteticaAnalisis;
-import DatosDinámicos.ModeladoMultidimensional;
-import DatosDinámicos.EsteticaDatos;
+import AnalisisYOrganizacion1.EsteticaAnalisis;
+import DatosDinámicos1.EsteticaDatos;
 import IndexacionYVisualizacion.EsteticaIndexacion;
 import MapasYAsociacion.EsteticaMapas;
 
