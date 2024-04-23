@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 public class EsteticaDatos extends JFrame {
     // Crear un JTextArea para mostrar los resultados
     JTextArea textArea = new JTextArea();
+    // Crear un JTextField para ingresar los números
+    JTextField textField = new JTextField(20);
 
     public EsteticaDatos() {
 
@@ -35,10 +37,11 @@ public class EsteticaDatos extends JFrame {
             }
         });
 
-        // Crear un JPanel con FlowLayout y agregar el botón a este
+        // Crear un JPanel con FlowLayout y agregar el botón y el JTextField a este
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.setBackground(customColor); // Establecer el color de fondo del JPanel
         buttonPanel.add(button);
+        buttonPanel.add(textField);
 
         // Agregar el JTextArea a un JScrollPane
         textArea.setEditable(false); // Hacer el JTextArea no editable
@@ -66,9 +69,13 @@ public class EsteticaDatos extends JFrame {
         // Crear una instancia de ModeladoMultidimensional
         ModeladoMultidimensional modelado = new ModeladoMultidimensional();
 
-        // Obtener y mostrar algunos datos
-        String text = "Primer elemento de listaReales: " + modelado.getListaReales().obtenerElemento(0) + "\n";
-        text += "Primer elemento de listaPares: " + modelado.getListaPares().obtenerElemento(0).getPrimero() + ", " + modelado.getListaPares().obtenerElemento(0).getSegundo() + "\n";
+        // Obtener el número ingresado en el JTextField
+        String input = textField.getText();
+
+        // Usar el número ingresado en lugar de los números predefinidos
+        // Aquí debes adaptar el código según cómo quieras usar el número ingresado
+        // Este es solo un ejemplo
+        String text = "Número ingresado: " + input + "\n";
         textArea.setText(text);
     }
 
