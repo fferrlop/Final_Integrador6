@@ -2,8 +2,12 @@ package MapasYAsociacion;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EsteticaMapas extends JFrame {
+    private Map<String, JPanel> cellPanels = new HashMap<>();
+
     public EsteticaMapas() {
 
         setTitle("Mapas y Asociación");
@@ -28,6 +32,7 @@ public class EsteticaMapas extends JFrame {
                 JLabel cellLabel = new JLabel(String.valueOf(column) + (j + 1));
                 cellPanel.add(cellLabel);
                 gridPanel.add(cellPanel);
+                cellPanels.put(String.valueOf(column) + (j + 1), cellPanel);
             }
             column++;
         }
@@ -35,6 +40,13 @@ public class EsteticaMapas extends JFrame {
         getContentPane().add(gridPanel, BorderLayout.CENTER);
 
         JButton button = new JButton("Escribir coordenada");
+        button.addActionListener(e -> {
+            String coordenada = JOptionPane.showInputDialog("Ingrese la coordenada:");
+            JPanel cellPanel = cellPanels.get(coordenada);
+            if (cellPanel != null) {
+                cellPanel.setBackground(Color.RED);
+            }
+        });
         getContentPane().add(button, BorderLayout.SOUTH);
     }
 }
