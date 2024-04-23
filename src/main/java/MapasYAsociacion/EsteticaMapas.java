@@ -2,6 +2,8 @@ package MapasYAsociacion;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,13 @@ public class EsteticaMapas extends JFrame {
                 cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 JLabel cellLabel = new JLabel(String.valueOf(column) + (j + 1));
                 cellPanel.add(cellLabel);
+                cellPanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        cellPanel.setBackground(Color.RED);
+                        JOptionPane.showMessageDialog(null, "Has pulsado el cuadrante: " + cellLabel.getText());
+                    }
+                });
                 gridPanel.add(cellPanel);
                 cellPanels.put(String.valueOf(column) + (j + 1), cellPanel);
             }
