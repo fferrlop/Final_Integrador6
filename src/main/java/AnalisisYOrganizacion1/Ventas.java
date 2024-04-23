@@ -1,25 +1,27 @@
 package AnalisisYOrganizacion1;
 
+import java.time.LocalDate;
+
 public class Ventas {
-    private String producto;
-    private int cantidad;
-    private double precio;
+    private String nombreComprador;
+    private double cantidad;
+    private LocalDate fecha;
 
-    public Ventas(String producto, int cantidad, double precio) {
-        this.producto = producto;
+    public Ventas(String nombreComprador, double cantidad, LocalDate fecha) {
+        this.nombreComprador = nombreComprador;
         this.cantidad = cantidad;
-        this.precio = precio;
+        this.fecha = fecha;
     }
 
-    public String getProducto() {
-        return producto;
+    public String getNombreComprador() {
+        return nombreComprador;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public double getPrecio() {
-        return precio;
+    public LocalDate getFecha() {
+        return fecha;
     }
 }
