@@ -36,8 +36,12 @@ public class EsteticaMapas extends JFrame {
                 cellPanel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        cellPanel.setBackground(Color.RED);
-                        JOptionPane.showMessageDialog(null, "Has pulsado el cuadrante: " + cellLabel.getText());
+                        if (cellPanel.getBackground().equals(Color.RED)) {
+                            cellPanel.setBackground(null);
+                        } else {
+                            cellPanel.setBackground(Color.RED);
+                            JOptionPane.showMessageDialog(null, "Has pulsado el cuadrante: " + cellLabel.getText());
+                        }
                     }
                 });
                 gridPanel.add(cellPanel);
@@ -53,7 +57,11 @@ public class EsteticaMapas extends JFrame {
             String coordenada = JOptionPane.showInputDialog("Ingrese la coordenada:");
             JPanel cellPanel = cellPanels.get(coordenada);
             if (cellPanel != null) {
-                cellPanel.setBackground(Color.RED);
+                if (cellPanel.getBackground().equals(Color.RED)) {
+                    cellPanel.setBackground(null);
+                } else {
+                    cellPanel.setBackground(Color.RED);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Esta coordenada no existe");
             }
