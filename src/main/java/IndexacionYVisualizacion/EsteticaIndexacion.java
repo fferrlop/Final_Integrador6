@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class EsteticaIndexacion extends JFrame {
@@ -46,13 +48,28 @@ public class EsteticaIndexacion extends JFrame {
 
         JButton searchButton = new JButton("Buscar archivo");
         searchButton.setMaximumSize(new Dimension(200, searchButton.getMinimumSize().height)); // Limit the maximum width
+        // Botón para buscar archivos
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String fileName = JOptionPane.showInputDialog("Ingrese el nombre del archivo a buscar:");
                 if (fileName != null) {
                     List<IndexFile> files = fileIndexer.searchFiles(fileName);
-                    JOptionPane.showMessageDialog(null, "Archivos encontrados: " + files);
+                    if (!files.isEmpty()) {
+                        StringBuilder filesList = new StringBuilder();
+                        for (IndexFile file : files) {
+                            File actualFile = new File(file.getPath());
+                            filesList.append(file.getName())
+                                    .append(" (")
+                                    .append(file.getPath())
+                                    .append(") - Última modificación: ")
+                                    .append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(actualFile.lastModified()))
+                                    .append("\n");
+                        }
+                        JOptionPane.showMessageDialog(null, "Archivos encontrados:\n" + filesList.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontraron archivos.");
+                    }
                 }
             }
         });
@@ -61,11 +78,20 @@ public class EsteticaIndexacion extends JFrame {
 
         JButton listButton = new JButton("Listar archivos");
         listButton.setMaximumSize(new Dimension(200, listButton.getMinimumSize().height)); // Limit the maximum width
+        // Botón para listar archivos
         listButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<IndexFile> files = fileIndexer.listFiles();
-                JOptionPane.showMessageDialog(null, "Archivos indexados: " + files);
+                if (!files.isEmpty()) {
+                    StringBuilder filesList = new StringBuilder();
+                    for (IndexFile file : files) {
+                        filesList.append(file.getName()).append(" (").append(file.getPath()).append(")\n");
+                    }
+                    JOptionPane.showMessageDialog(null, "Archivos indexados:\n" + filesList.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay archivos indexados.");
+                }
             }
         });
         buttonPanel.add(listButton);
