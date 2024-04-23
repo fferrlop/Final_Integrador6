@@ -12,6 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.*;
 
@@ -88,27 +91,69 @@ public class EsteticaDatos extends JFrame {
             }
         });
 
+        // Crear un botón de ordenar
+        // Crear un botón de ordenar
+        JButton sortButton = new JButton("Ordenar");
+        sortButton.setPreferredSize(new Dimension(100, 25)); // Establecer un tamaño fijo para el botón de ordenar
+        sortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Crear una ventana emergente para elegir el criterio de ordenación
+                JDialog sortDialog = new JDialog(EsteticaDatos.this, "Ordenar parejas", true);
+                sortDialog.setLayout(new FlowLayout());
+
+                // Crear un botón "Ordenar por primer número" para realizar la ordenación
+                JButton firstNumberButton = new JButton("Ordenar por primer número");
+                firstNumberButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Llamar al método para ordenar los datos por el primer número
+                        sortDataByFirstNumber();
+                        sortDialog.dispose();
+                    }
+                });
+                sortDialog.add(firstNumberButton);
+
+                // Crear un botón "Ordenar por segundo número" para realizar la ordenación
+                JButton secondNumberButton = new JButton("Ordenar por segundo número");
+                secondNumberButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Llamar al método para ordenar los datos por el segundo número
+                        sortDataBySecondNumber();
+                        sortDialog.dispose();
+                    }
+                });
+                sortDialog.add(secondNumberButton);
+
+                sortDialog.pack();
+                sortDialog.setLocationRelativeTo(null); // Centrar la ventana emergente en la pantalla
+                sortDialog.setVisible(true);
+            }
+        });
+
 // Crear un JPanel con FlowLayout para contener el botón de eliminar
-        JPanel deleteButtonPanel = new JPanel(new FlowLayout());
-        deleteButtonPanel.setOpaque(true);
-        deleteButtonPanel.setBackground(customColor);
-        deleteButtonPanel.add(deleteButton);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setOpaque(true);
+        buttonPanel.setBackground(customColor);
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(sortButton);
 
 // Crear un JPanel para contener el JTextArea y el botón de eliminar
         JPanel panel2 = new JPanel(new BorderLayout());
         panel2.setOpaque(false);
-        panel2.add(deleteButtonPanel, BorderLayout.NORTH);
+        panel2.add(buttonPanel, BorderLayout.NORTH);
         panel2.add(textArea, BorderLayout.CENTER);
 
 // Agregar el JPanel al JFrame
         add(panel2);
 
 // Crear un JPanel con FlowLayout y agregar los botones y el JTextField a este
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setBackground(customColor);
-        buttonPanel.add(button);
-        buttonPanel.add(textField);
-        buttonPanel.add(saveButton);
+        JPanel buttonPanel2 = new JPanel(new FlowLayout());
+        buttonPanel2.setBackground(customColor);
+        buttonPanel2.add(button);
+        buttonPanel2.add(textField);
+        buttonPanel2.add(saveButton);
 
 // Agregar el JTextArea a un JScrollPane
         textArea.setEditable(false); // Hacer el JTextArea no editable
@@ -125,7 +170,7 @@ public class EsteticaDatos extends JFrame {
 
 // Crear un JPanel con BorderLayout y agregar el buttonPanel y el scrollPanePanel a este
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add(buttonPanel, BorderLayout.NORTH);
+        panel.add(buttonPanel2, BorderLayout.NORTH);
         panel.add(scrollPanePanel, BorderLayout.CENTER);
 
 // Agregar el JPanel a la ventana
@@ -163,7 +208,7 @@ public class EsteticaDatos extends JFrame {
             try {
                 // Crear la carpeta ArchivosGuardados si no existe
                 File directory = new File("ArchivosGuardados");
-                if (! directory.exists()){
+                if (!directory.exists()) {
                     directory.mkdir();
                 }
 
@@ -181,23 +226,93 @@ public class EsteticaDatos extends JFrame {
         }
     }
 
-//eliminar informacion
-public void deleteData(String dataToDelete) {
-    try {
-        Path path = Paths.get("src/main/java/ArchivosGuardados/ListaPares.txt");
-        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+    //eliminar informacion
+    public void deleteData(String dataToDelete) {
+        try {
+            Path path = Paths.get("src/main/java/ArchivosGuardados/ListaPares.txt");
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 
-        // Eliminar la pareja de la lista
-        lines.remove(dataToDelete);
+            // Eliminar la pareja de la lista
+            lines.remove(dataToDelete);
 
-        // Reescribir el archivo con las parejas restantes
-        Files.write(path, lines, StandardCharsets.UTF_8);
-    } catch (IOException e) {
-        e.printStackTrace();
+            // Reescribir el archivo con las parejas restantes
+            Files.write(path, lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
     public void setTextArea(String text) {
         this.textArea.setText(text);
+    }
+
+    public void sortData() {
+        // Assuming you have a List<Integer> data to be sorted
+        List<Integer> data = new ArrayList<>();
+
+        // Add data to the list
+        // data.add();
+
+        // Sort the list
+        Collections.sort(data);
+
+        // Print sorted data or do something with it
+        for (int num : data) {
+            System.out.println(num);
+        }
+    }
+
+    public void sortDataByFirstNumber() {
+        try {
+            Path path = Paths.get("src/main/java/ArchivosGuardados/ListaPares.txt");
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+
+            // Convertir las líneas a objetos Pareja
+            List<Pareja> data = lines.stream()
+                    .filter(line -> line.matches("\\(\\d+, \\d+\\)"))  // Only process lines that match the format "(d, d)"
+                    .map(line -> {
+                        String[] numbers = line.replaceAll("[()]", "").split(", ");
+                        return new Pareja(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
+                    })
+                    .collect(Collectors.toList());
+
+            // Ordenar la lista por el primer número
+            Collections.sort(data, Comparator.comparingInt(Pareja::getPrimero));
+
+            // Convertir los objetos Pareja a texto y escribirlos en el archivo
+            List<String> sortedLines = data.stream()
+                    .map(pareja -> "(" + pareja.getPrimero() + ", " + pareja.getSegundo() + ")")
+                    .collect(Collectors.toList());
+            Files.write(path, sortedLines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sortDataBySecondNumber() {
+        try {
+            Path path = Paths.get("src/main/java/ArchivosGuardados/ListaPares.txt");
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+
+            // Convertir las líneas a objetos Pareja
+            List<Pareja> data = lines.stream()
+                    .filter(line -> line.matches("\\(\\d+, \\d+\\)"))  // Only process lines that match the format "(d, d)"
+                    .map(line -> {
+                        String[] numbers = line.replaceAll("[()]", "").split(", ");
+                        return new Pareja(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
+                    })
+                    .collect(Collectors.toList());
+
+            // Ordenar la lista por el segundo número
+            Collections.sort(data, Comparator.comparingInt(Pareja::getSegundo));
+
+            // Convertir los objetos Pareja a texto y escribirlos en el archivo
+            List<String> sortedLines = data.stream()
+                    .map(pareja -> "(" + pareja.getPrimero() + ", " + pareja.getSegundo() + ")")
+                    .collect(Collectors.toList());
+            Files.write(path, sortedLines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

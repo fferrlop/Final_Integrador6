@@ -1,6 +1,5 @@
 package DatosDinámicos2;
 
-
 public class Pareja {
     private int primero;
     private int segundo;

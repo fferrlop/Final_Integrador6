@@ -1,20 +1,16 @@
 package DatosDinámicos2;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaPares {
-    private ArrayList<Pareja> lista;
+    private List<Pareja> lista = new ArrayList<>();
 
-    public ListaPares() {
-        lista = new ArrayList<>();
+    public void agregarElemento(Pareja pareja) {
+        lista.add(pareja);
     }
 
-    public void agregarElemento(Pareja elemento) {
-        lista.add(elemento);
-    }
-
-    public Pareja obtenerElemento(int indice) {
-        return lista.get(indice);
+    public List<Pareja> getLista() {
+        return lista;
     }
 }
