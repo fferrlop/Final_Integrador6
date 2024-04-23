@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 public class EsteticaAnalisis extends JFrame {
     private List<Ventas> ventas;
@@ -37,7 +38,7 @@ public class EsteticaAnalisis extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = new Insets(8, 0, 10, 0);
+        constraints.insets = new Insets(5, 0, 5, 0);
 
         JLabel label = new JLabel("Analisis y Organización de información", SwingConstants.CENTER);
         label.setForeground(Color.WHITE);
@@ -56,7 +57,6 @@ public class EsteticaAnalisis extends JFrame {
         });
 
         panel.add(saveButton, constraints);
-
 
 
         textArea = new JTextArea(10, 30);
@@ -81,6 +81,36 @@ public class EsteticaAnalisis extends JFrame {
         constraints.gridy = 2;
         panel.add(mostrarVentasButton, constraints);
 
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0)); // Create a new panel with a FlowLayout
+        buttonPanel.setBackground(customColor);
+
+        JButton eliminarVentasButton = new JButton("Eliminar");
+        eliminarVentasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarVenta();
+            }
+        });
+
+        buttonPanel.add(eliminarVentasButton); // Add the button to the new panel
+
+        JButton filtrarVentasButton = new JButton("Filtrar");
+        filtrarVentasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Implementar la lógica para filtrar las ventas aquí
+            }
+        });
+
+        buttonPanel.add(filtrarVentasButton); // Add the button to the new panel
+
+        constraints.gridy = 4;
+        panel.add(buttonPanel, constraints); // Add the new panel to the original panel
+
+
+
+
         getContentPane().add(panel, BorderLayout.NORTH);
 
         pack();
@@ -99,17 +129,41 @@ public class EsteticaAnalisis extends JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha = LocalDate.parse(fechaStr, formatter);
 
-        ventas.add(new Ventas(nombreComprador, cantidad, fecha));
+        Ventas venta = new Ventas(nombreComprador, cantidad, fecha);
+        ventas.add(venta);
         System.out.println("Venta agregada: " + nombreComprador + " | " + cantidad + " | " + fechaStr); // Imprime un mensaje cuando se agrega una venta
 
         try (FileWriter writer = new FileWriter("src/main/java/ArchivosGuardados/informacionVentas.txt", true)) {
-            for (Ventas venta : ventas) {
-                String ventaStr = venta.getNombreComprador() + " | " + venta.getCantidad() + " | " + venta.getFecha().format(formatter) + "\n";
-                writer.write(ventaStr);
-                System.out.println("Venta escrita en el archivo: " + ventaStr); // Imprime un mensaje cuando se escribe en el archivo
-            }
+            String ventaStr = venta.getNombreComprador() + " | " + venta.getCantidad() + " | " + venta.getFecha().format(formatter) + "\n";
+            writer.write(ventaStr);
+            System.out.println("Venta escrita en el archivo: " + ventaStr); // Imprime un mensaje cuando se escribe en el archivo
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void eliminarVenta() {
+        try {
+            // Leer todas las líneas del archivo
+            List<String> lines = Files.readAllLines(Paths.get("src/main/java/ArchivosGuardados/informacionVentas.txt"));
+
+            // Mostrar las ventas al usuario y pedirle que seleccione una para eliminar
+            String ventaParaEliminar = (String) JOptionPane.showInputDialog(null, "Seleccione la venta que desea eliminar:",
+                    "Eliminar venta", JOptionPane.QUESTION_MESSAGE, null, lines.toArray(), lines.get(0));
+
+            if (ventaParaEliminar != null) {
+                // Filtrar la lista para eliminar la venta seleccionada
+                List<String> updatedLines = lines.stream()
+                        .filter(line -> !line.equals(ventaParaEliminar))
+                        .collect(Collectors.toList());
+
+                // Reescribir el archivo con la lista actualizada
+                Files.write(Paths.get("src/main/java/ArchivosGuardados/informacionVentas.txt"), updatedLines);
+
+                JOptionPane.showMessageDialog(null, "Venta eliminada exitosamente.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }

@@ -53,7 +53,9 @@ public class InterfazUsuario extends JFrame {
         botonAnalisisOrganizacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EsteticaAnalisis().setVisible(true);
+                EsteticaAnalisis esteticaAnalisis = new EsteticaAnalisis();
+                esteticaAnalisis.setVisible(true);
+                esteticaAnalisis.setLocationRelativeTo(null);
             }
         });
 
