@@ -99,7 +99,7 @@ public class EsteticaAnalisis extends JFrame {
         filtrarVentasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar la lógica para filtrar las ventas aquí
+                filtrarVentas();
             }
         });
 
@@ -107,9 +107,6 @@ public class EsteticaAnalisis extends JFrame {
 
         constraints.gridy = 4;
         panel.add(buttonPanel, constraints); // Add the new panel to the original panel
-
-
-
 
         getContentPane().add(panel, BorderLayout.NORTH);
 
@@ -164,6 +161,42 @@ public class EsteticaAnalisis extends JFrame {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void filtrarVentas() {
+        String[] options = {"Nombre", "Precio", "Fecha"};
+        int response = JOptionPane.showOptionDialog(null, "Seleccione el criterio de filtrado:", "Filtrar ventas",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        switch (response) {
+            case 0:
+                filtrarPorNombre();
+                break;
+            case 1:
+                // Implementar la lógica para filtrar por precio aquí
+                break;
+            case 2:
+                // Implementar la lógica para filtrar por fecha aquí
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void filtrarPorNombre() {
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre para filtrar:");
+        if (nombre != null) {
+            try {
+                List<String> lines = Files.readAllLines(Paths.get("src/main/java/ArchivosGuardados/informacionVentas.txt"));
+                List<String> filteredLines = lines.stream()
+                        .filter(line -> line.startsWith(nombre + " |"))
+                        .collect(Collectors.toList());
+
+                textArea.setText(String.join("\n", filteredLines));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
